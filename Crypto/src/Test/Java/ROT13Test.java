@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -88,4 +89,20 @@ public class ROT13Test {
         assertTrue(actual.equals(Q1));
     }
 
+    @Test
+    public void testFindIndexOfCharacterInAlphabetTest() {
+        // Given
+        ROT13 cipher = new ROT13('a', 'n');
+        int expected1 = 0;
+        int expected2 = 12;
+        int expected3 = 25;
+        // When
+        int actual1 = cipher.findIndexOfCharacterInAlphabet('A');
+        int actual2 = cipher.findIndexOfCharacterInAlphabet('m');
+        int actual3 = cipher.findIndexOfCharacterInAlphabet('Z');
+        // Then
+        Assert.assertEquals(expected1, actual1);
+        Assert.assertEquals(expected2, actual2);
+        Assert.assertEquals(expected3, actual3);
+    }
 }
