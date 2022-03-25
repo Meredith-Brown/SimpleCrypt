@@ -90,7 +90,7 @@ public class ROT13Test {
     }
 
     @Test
-    public void testFindIndexOfCharacterInAlphabetTest() {
+    public void testFindIndexOfCharacterInAlphabet() {
         // Given
         ROT13 cipher = new ROT13('a', 'n');
         int expected1 = 0;
@@ -100,6 +100,23 @@ public class ROT13Test {
         int actual1 = cipher.findIndexOfCharacterInAlphabet('A');
         int actual2 = cipher.findIndexOfCharacterInAlphabet('m');
         int actual3 = cipher.findIndexOfCharacterInAlphabet('Z');
+        // Then
+        Assert.assertEquals(expected1, actual1);
+        Assert.assertEquals(expected2, actual2);
+        Assert.assertEquals(expected3, actual3);
+    }
+
+    @Test
+    public void testGenerateNewIndex() {
+        // Given
+        ROT13 cipher = new ROT13('a', 'n');
+        int expected1 = 0;
+        int expected2 = 12;
+        int expected3 = 25;
+        // When
+        int actual1 = cipher.generateNewIndex('n');
+        int actual2 = cipher.generateNewIndex('Z');
+        int actual3 = cipher.generateNewIndex('M');
         // Then
         Assert.assertEquals(expected1, actual1);
         Assert.assertEquals(expected2, actual2);

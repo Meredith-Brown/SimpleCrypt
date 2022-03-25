@@ -23,42 +23,50 @@ public class ROT13  {
         StringBuilder sb = new StringBuilder();
         for (int j = 0; j < text.length(); j++) {
             if (Character.isUpperCase(text.charAt(j))) {
-                int characterIndexU = findIndexOfCharacterInAlphabet(text.charAt(j));
-                int newIndexU = characterIndexU + shiftValue;
-                if (newIndexU > 25) {
-                    newIndexU -= 25;
-                }
+                int newIndexU = generateNewIndex(text.charAt(j));
                 sb.append(alphabetUpper.charAt(newIndexU));
             } else if (Character.isLowerCase(text.charAt(j))) {
-                int characterIndexL = findIndexOfCharacterInAlphabet(text.charAt(j));
-                int newIndexL = characterIndexL + shiftValue;
-                if (newIndexL > 25) {
-                    newIndexL -= 25;
-                }
+                int newIndexL = generateNewIndex(text.charAt(j));
                 sb.append(alphabetLower.charAt(newIndexL));
             } else if (!Character.isLetterOrDigit(text.charAt(j))) {
                 sb.append(text.charAt(j));
             }
         }
         String output = sb.toString();
-        System.out.println(output); // TODO - delete
         return output;
     }
 
     public String encrypt(String text) {
+        text = crypt(text);
         return text;
     }
 
     public String decrypt(String text) {
+        shiftValue -= (shiftValue * 2);
+        text = crypt(text);
+        shiftValue -= (shiftValue * 2); // revert
         return text;
     }
 
     public static String rotate(String s, Character c) {
-
-        return "";
+        StringBuilder sb = new StringBuilder();
+        int index = 0;
+        for (int k = 0; k < s.length(); k++) {
+            if (s.charAt(k) == c) {
+                index = k;
+            }
+        }
+        for (int z = index; z < s.length(); z++) {
+            sb.append(s.charAt(z));
+        }
+        for (int y = 0; y < index; y++) {
+            sb.append(s.charAt(y));
+        }
+        String output = sb.toString();
+        return output;
     }
 
-    public int findIndexOfCharacterInAlphabet(Character c) {
+    public int findIndexOfCharacterInAlphabet(Character c) { // added/tested
         int index = 0;
         if (Character.isUpperCase(c)) {
             for (int k = 0; k < 26; k++) {
@@ -75,4 +83,19 @@ public class ROT13  {
         }
         return index;
     }
+
+    public int generateNewIndex(Character c) { // added/tested
+        int characterIndex = findIndexOfCharacterInAlphabet(c);
+        int newIndex = characterIndex + shiftValue;
+        if (newIndex > 25) {
+            newIndex -= 26;
+        }
+        if (newIndex < 0) {
+            newIndex += 26;
+        }
+        return newIndex;
+    }
 }
+// Make a method that reads a textfile (sonnet18.txt), encrypts it, and writes it back out to a
+// different file (sonnet18.enc) Prove that when you read in (sonnet18.enc), run the same crypt
+// again, and prove that it produces the same original text.
