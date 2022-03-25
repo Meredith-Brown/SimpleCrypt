@@ -2,6 +2,7 @@ import junit.framework.TestCase;
 import org.junit.Assert;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class SonnetCipherTest extends TestCase {
 
@@ -57,10 +58,9 @@ public class SonnetCipherTest extends TestCase {
 
     }
 
-    public void testSonnetCipherTest() {
-        boolean expected = true;
+    public void testSonnetCipherTest() throws IOException {
         boolean actual = SonnetCipher.sonnetCipherTest();
-        Assert.assertEquals(expected, actual);
+        Assert.assertTrue(actual);
 
     }
 }

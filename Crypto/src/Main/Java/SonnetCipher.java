@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class SonnetCipher {
     public static boolean same = false;
 
-    public static boolean sonnetCipherTest() {
+    public static boolean sonnetCipherTest() throws IOException {
         String sonnet = null;
         try {
             sonnet = importSonnet("/Users/meredith/dev/SimpleCrypt/sonnet18.txt");
@@ -17,6 +17,7 @@ public class SonnetCipher {
             e.printStackTrace();
         }
         String encryptedSonnet = encryptSonnet(sonnet);
+        exportEncryptedSonnet(encryptedSonnet);
         try {
             exportEncryptedSonnet(encryptedSonnet);
         } catch (IOException e) {
@@ -29,9 +30,7 @@ public class SonnetCipher {
             e.printStackTrace();
         }
         String decryptedSonnet = encryptSonnet(sonnetToDecrypt);
-        System.out.println(decryptedSonnet);
-        same = (sonnet == decryptedSonnet);
-        System.out.println(same);
+        same = (sonnet.equals(decryptedSonnet));
         return same;
     }
 
