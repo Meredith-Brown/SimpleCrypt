@@ -96,6 +96,3 @@ public class ROT13  {
         return newIndex;
     }
 }
-// Make a method that reads a textfile (sonnet18.txt), encrypts it, and writes it back out to a
-// different file (sonnet18.enc) Prove that when you read in (sonnet18.enc), run the same crypt
-// again, and prove that it produces the same original text.

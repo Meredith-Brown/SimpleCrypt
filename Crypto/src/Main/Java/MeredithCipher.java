@@ -1,8 +1,7 @@
 public class MeredithCipher {
-    String alphabetUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    String alphabetLower = "abcdefghijklmnopqrstuvwxyz";
-    int shiftValue = 10; // shift value for all letters EXCEPT 'M', 'E', 'R', 'D', 'I', 'T', 'H'
-    int secondShiftValue = 2; // shift value for 'M', 'E', 'R', 'D', 'I', 'T', 'H'
+    String alphabetUpper = "FGHIJKLMABCDENOPQRSTUVWXYZ";
+    String alphabetLower = "fghijklmabcdenopqrstuvwxyz";
+    int shiftValue = 1; // shift value for all letters EXCEPT 'M', 'E', 'R', 'D', 'I', 'T', 'H'
 
     MeredithCipher() {}
 
@@ -28,14 +27,32 @@ public class MeredithCipher {
         return text;
     }
 
-    public String decrypt(String text) { // TODO
+    public String decrypt(String text) {
         shiftValue -= (shiftValue * 2);
         text = crypt(text);
         shiftValue -= (shiftValue * 2); // revert
         return text;
     }
 
-    public int findIndexOfCharacterInAlphabet(Character c) {
+    public static String rotate(String s, Character c) {
+        StringBuilder sb = new StringBuilder();
+        int index = 0;
+        for (int k = 0; k < s.length(); k++) {
+            if (s.charAt(k) == c) {
+                index = k;
+            }
+        }
+        for (int z = index; z < s.length(); z++) {
+            sb.append(s.charAt(z));
+        }
+        for (int y = 0; y < index; y++) {
+            sb.append(s.charAt(y));
+        }
+        String output = sb.toString();
+        return output;
+    }
+
+    public int findIndexOfCharacterInAlphabet(Character c) { // added/tested
         int index = 0;
         if (Character.isUpperCase(c)) {
             for (int k = 0; k < 26; k++) {
@@ -53,20 +70,14 @@ public class MeredithCipher {
         return index;
     }
 
-    public int generateNewIndex(Character c) {
+    public int generateNewIndex(Character c) { // added/tested
         int characterIndex = findIndexOfCharacterInAlphabet(c);
-        int newIndex = 0;
-        if (characterIndex == 12 || characterIndex == 4 || characterIndex == 17 || characterIndex == 3 ||
-                characterIndex == 8 || characterIndex == 19 || characterIndex == 7) {
-            newIndex = characterIndex + secondShiftValue;
-        } else {
-            newIndex = characterIndex + shiftValue;
-            if (newIndex > 25) {
-                newIndex -= 26;
-            }
-            if (newIndex < 0) {
-                newIndex += 26;
-            }
+        int newIndex = characterIndex + shiftValue;
+        if (newIndex > 25) {
+            newIndex -= 26;
+        }
+        if (newIndex < 0) {
+            newIndex += 26;
         }
         return newIndex;
     }
